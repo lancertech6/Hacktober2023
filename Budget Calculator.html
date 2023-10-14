@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Calculator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#calculateButton').click(function () {
+                const totalAmount = parseFloat($('#totalAmount').val());
+                const roomRentPercentage = parseFloat($('#roomRentPercentage').val());
+                const accessoriesPercentage = parseFloat($('#accessoriesPercentage').val());
+                const emergencyPercentage = parseFloat($('#emergencyPercentage').val());
+                const savingsPercentage = parseFloat($('#savingsPercentage').val());
+
+                if (isNaN(totalAmount) || isNaN(roomRentPercentage) || isNaN(accessoriesPercentage) || isNaN(emergencyPercentage) || isNaN(savingsPercentage)) {
+                    alert('Please enter valid percentage values.');
+                    return;
+                }
+
+                const totalPercentage = roomRentPercentage + accessoriesPercentage + emergencyPercentage + savingsPercentage;
+
+                if (totalPercentage !== 100) {
+                    alert('Percentage values must add up to 100%.');
+                    return;
+                }
+
+                const roomRentAmount = (roomRentPercentage / 100) * totalAmount;
+                const accessoriesAmount = (accessoriesPercentage / 100) * totalAmount;
+                const emergencyAmount = (emergencyPercentage / 100) * totalAmount;
+                const savingsAmount = (savingsPercentage / 100) * totalAmount;
+
+                $('#result').html(`
+                    Room Rent: $${roomRentAmount.toFixed(2)}<br>
+                    Accessories: $${accessoriesAmount.toFixed(2)}<br>
+                    Emergency: $${emergencyAmount.toFixed(2)}<br>
+                    Savings: $${savingsAmount.toFixed(2)}
+                `);
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        label {
+            display: flex
+            width: 150px;
+        }
+        input {
+            width: 100px;
+            padding: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #6dda13;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 align="center">Budget Calculator App</h1>
+        <div class="input-group" style="text-align: center;">
+            <label for="totalAmount"><b>Enter Amount that you want to Manage</b></label><br><br>
+            <input type="number" id="totalAmount" step="0.01" min="0" ><br><br>
+
+            <label for=""><b>How would you like to divide your Money</b></label><br><br>
+        <label for="roomRentPercentage">Room Rent (%):</label>
+        <input type="number" id="roomRentPercentage" step="0.01" min="0">
+        
+        
+            <label for="accessoriesPercentage">Accessories (%):</label>
+            <input type="number" id="accessoriesPercentage" step="0.01" min="0">
+        
+      
+            <label for="emergencyPercentage">Emergency (%):</label>
+            <input type="number" id="emergencyPercentage" step="0.01" min="0">
+       
+     
+            <label for="savingsPercentage">Savings (%):</label>
+            <input type="number" id="savingsPercentage" step="0.01" min="0">
+            <br><br>
+  
+        <button id="calculateButton">Evaluate My Money</button>  
+</body>
+</html>
